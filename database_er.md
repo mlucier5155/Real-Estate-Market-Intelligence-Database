@@ -94,3 +94,17 @@ PROPERTY (M) ───< FORECAST >─── (M) MARKET_DATA description: Many pr
 FORECAST stores predicted pricing results and analytics output. many to many type 
 
 PROPERTY (1) ─────────────── (1) INVESTMENT_PROFILE description: Each property has exactly one investment profile containing ROI, risk rating, and investment classification. 1 to 1 type
+-----------------------------------------------------------------------------------------------------------------------------------------
+BCNF
+LOCATION(LocationID PK, City, State, Region, GeoIndex)
+
+ZIP_CODE(ZipCode PK, City, State)
+
+PROPERTY(PropertyID PK, Address, ZipCode FK, Bedrooms, Bathrooms, SquareFootage, YearBuilt, LocationID FK)
+
+PRICE_HISTORY(PropertyID FK, HistoryID, SaleDate, SalePrice, 
+              PK(PropertyID, HistoryID))
+
+MARKET_DATA(MarketID PK, InterestRate, InflationRate, HousingDemandIndex, MarketDate)
+
+FORECAST(ForecastID PK, PropertyID FK, MarketID FK, PredictedPrice, ForecastDate, ConfidenceScore)
