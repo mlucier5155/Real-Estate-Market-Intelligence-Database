@@ -108,3 +108,93 @@ PRICE_HISTORY(PropertyID FK, HistoryID, SaleDate, SalePrice,
 MARKET_DATA(MarketID PK, InterestRate, InflationRate, HousingDemandIndex, MarketDate)
 
 FORECAST(ForecastID PK, PropertyID FK, MarketID FK, PredictedPrice, ForecastDate, ConfidenceScore)
+-----------------------------------------------------------------------------------------------------------------------------------------
+Functional Dependencies (FDs)
+
+We now identify all non-trivial functional dependencies.
+
+LOCATION
+
+FDs:
+
+LocationID → City, State, Region, GeoIndex
+
+Candidate Key: LocationID
+
+Since the determinant is a key → satisfies BCNF.
+
+PROPERTY
+
+FDs:
+
+PropertyID → Address, City, State, ZipCode, Bedrooms, Bathrooms, SquareFootage, YearBuilt, LocationID
+
+Potential real-world dependency:
+
+ZipCode → City, State (if assumed true)
+
+If we assume ZipCode → City, State, then:
+
+PropertyID → ZipCode → City, State
+
+This creates a transitive dependency, violating BCNF.
+
+BCNF Decomposition (if ZipCode determines City/State)
+
+Decompose into:
+
+PROPERTY
+PROPERTY(PropertyID PK, Address, ZipCode, Bedrooms, Bathrooms, SquareFootage, YearBuilt, LocationID)
+
+ZIP_CODE
+ZIP_CODE(ZipCode PK, City, State)
+
+Now:
+
+ZipCode → City, State
+
+PropertyID → remaining attributes
+
+All determinants are keys → BCNF satisfied.
+
+If you do NOT assume that dependency, PROPERTY is already BCNF.
+
+PRICE_HISTORY
+
+FDs:
+
+(PropertyID, HistoryID) → SaleDate, SalePrice
+
+Composite key determines all attributes.
+No partial dependency.
+No transitive dependency.
+
+BCNF satisfied.
+
+MARKET_DATA
+
+FDs:
+
+MarketID → InterestRate, InflationRate, HousingDemandIndex, MarketDate
+
+Key determines everything.
+BCNF satisfied.
+
+FORECAST
+
+FDs:
+
+ForecastID → PropertyID, MarketID, PredictedPrice, ForecastDate, ConfidenceScore
+
+If ForecastID is surrogate key, BCNF holds.
+
+However, logically:
+
+(PropertyID, MarketID, ForecastDate) → PredictedPrice, ConfidenceScore
+
+If this is true in your model, then that composite could be a candidate key.
+
+Either way, determinants are candidate keys → BCNF satisfied.
+-----------------------------------------------------------------------------------------------------------------------------------------
+tables are included as pngs
+![alt text](image.png)
