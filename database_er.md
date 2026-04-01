@@ -198,3 +198,19 @@ Either way, determinants are candidate keys → BCNF satisfied.
 -----------------------------------------------------------------------------------------------------------------------------------------
 tables are included as pngs
 ![alt text](image.png)
+
+## Final ER Design
+
+Entities:
+- LOCATION(LocationID, City, State, Region, GeoIndex)
+- ZIPCODE(ZipCode, City, State)
+- PROPERTY(PropertyID, Address, Bedrooms, Bathrooms, SquareFootage, YearBuilt, ZipCode, LocationID)
+- MARKET_DATA(MarketID, InterestRate, InflationRate, HousingDemandIndex, MarketDate)
+- PRICE_HISTORY(PropertyID, HistoryID, SaleDate, SalePrice)
+- FORECAST(ForecastID, PropertyID, MarketID, PredictedPrice, ForecastDate, ConfidenceScore)
+
+Relationships:
+- LOCATION 1 → M PROPERTY
+- ZIPCODE 1 → M PROPERTY
+- PROPERTY 1 → M PRICE_HISTORY
+- PROPERTY M ↔ M MARKET_DATA (via FORECAST)
