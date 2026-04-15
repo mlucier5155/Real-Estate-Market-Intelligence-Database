@@ -1,0 +1,6 @@
+LocationID,City,State,Region,GeoIndex
+L1,Orlando,FL,Central,GI1
+L2,Tampa,FL,West,GI2
+L3,Miami,FL,South,GI3
+L4,Jacksonville,FL,North,GI4
+L5,Tallahassee,FL,North,GI5
