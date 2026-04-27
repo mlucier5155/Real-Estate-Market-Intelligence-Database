@@ -1,0 +1,2 @@
+1. download python and sq3lite
+2. run python app.py 
