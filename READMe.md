@@ -17,3 +17,6 @@ Real Estate Analysts: Professionals looking for historical price trends and feat
 Property Investors: Users who need to evaluate the potential ROI of a location based on indexed market data and forecasts.
 
 Data Scientists/Researchers: Individuals interested in housing market dynamics and the correlation between property attributes and final pricing.
+
+
+
